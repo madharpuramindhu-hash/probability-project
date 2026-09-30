@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probability Lab</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<!-- ============ HTML ============ -->
+<body>
+
+<header>
+  <h1>Probability Lab</h1>
+  <p>Scan. Experiment. Understand Probability.</p>
+</header>
+
+<nav id="tabs">
+  <button class="active" data-tab="coin">🪙 Coin Flips</button>
+  <button data-tab="dice">🎲 Dice Rolls</button>
+  <button data-tab="sim">📈 Simulation</button>
+  <button data-tab="calc">🧮 Calculator</button>
+</nav>
+
+<main>
+
+  <!-- ============ 1. COIN FLIPS ============ -->
+  <section id="coin" class="active">
+    <div class="card">
+      <h2>Coin Flip Experiment</h2>
+      <p class="hint">A fair coin has a theoretical probability of 0.5 for heads. Flip it and see how close your experiment gets.</p>
+
+      <div class="big" id="coinResult">?</div>
+
+      <div class="row" style="justify-content:center">
+        <button class="btn" onclick="flipCoin(1)">Flip 1</button>
+        <button class="btn" onclick="flipCoin(10)">Flip 10</button>
+        <button class="btn" onclick="flipCoin(100)">Flip 100</button>
+        <button class="btn" onclick="flipCoin(1000)">Flip 1000</button>
+        <button class="btn ghost" onclick="resetCoin()">Reset</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="cTotal">0</b><span>Total flips</span></div>
+        <div class="stat"><b id="cHeads">0</b><span>Heads</span></div>
+        <div class="stat"><b id="cTails">0</b><span>Tails</span></div>
+      </div>
+
+      <h3>Theory vs Experiment</h3>
+      <div id="coinBars"></div>
+      <p class="legend"><span class="dot-i">■</span> Experimental result &nbsp; <span class="dot-r">|</span> Theoretical value (50%)</p>
+    </div>
+  </section>
+
+  <!-- ============ 2. DICE ROLLS ============ -->
+  <section id="dice">
+    <div class="card">
+      <h2>Dice Roll Experiment</h2>
+      <p class="hint">One die: each face has probability 1/6. Two dice: the sum 7 is the most likely (6/36).</p>
+
+      <div class="row">
+        <label for="diceMode">Mode:</label>
+        <select id="diceMode" onchange="resetDice()" style="width:170px">
+          <option value="1">One die</option>
+          <option value="2">Two dice (sum)</option>
+        </select>
+      </div>
+
+      <div class="big" id="diceResult">?</div>
+
+      <div class="row" style="justify-content:center">
+        <button class="btn" onclick="rollDice(1)">Roll 1</button>
+        <button class="btn" onclick="rollDice(10)">Roll 10</button>
+        <button class="btn" onclick="rollDice(100)">Roll 100</button>
+        <button class="btn" onclick="rollDice(1000)">Roll 1000</button>
+        <button class="btn ghost" onclick="resetDice()">Reset</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="dTotal">0</b><span>Total rolls</span></div>
+        <div class="stat"><b id="dMost">–</b><span>Most frequent</span></div>
+      </div>
+
+      <h3>Theory vs Experiment</h3>
+      <div id="diceBars"></div>
+      <p class="legend"><span class="dot-i">■</span> Experimental result &nbsp; <span class="dot-r">|</span> Theoretical probability</p>
+    </div>
+  </section>
+
+  <!-- ============ 3. SIMULATION ============ -->
+  <section id="sim">
+    <div class="card">
+      <h2>Law of Large Numbers Simulation</h2>
+      <p class="hint">Run many coin tosses at once. The line shows the running share of heads; watch it settle towards the theoretical value.</p>
+
+      <div class="row">
+        <label for="simN">Tosses:</label>
+        <select id="simN">
+          <option value="100">100</option>
+          <option value="1000" selected>1,000</option>
+          <option value="10000">10,000</option>
+          <option value="100000">100,000</option>
+        </select>
+        <label for="simP">P(heads):</label>
+        <input type="number" id="simP" value="0.5" min="0" max="1" step="0.05">
+        <button class="btn" onclick="runSimulation()">Run simulation</button>
+      </div>
+
+      <canvas id="simChart" width="800" height="360"></canvas>
+
+      <div class="stats" style="margin-top:14px">
+        <div class="stat"><b id="sTheory">–</b><span>Theoretical P(heads)</span></div>
+        <div class="stat"><b id="sExp">–</b><span>Experimental P(heads)</span></div>
+        <div class="stat"><b id="sDiff">–</b><span>Difference</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. CALCULATOR ============ -->
+  <section id="calc">
+    <div class="card">
+      <h2>Basic Probability Calculator</h2>
+      <p class="hint">P(E) = favourable outcomes ÷ total outcomes</p>
+
+      <div class="row">
+        <label for="fav">Favourable:</label><input type="number" id="fav" value="3" min="0">
+        <label for="tot">Total:</label><input type="number" id="tot" value="6" min="1">
+        <button class="btn" onclick="calcBasic()">Calculate</button>
+      </div>
+      <div class="row">
+        <span>Quick examples:</span>
+        <button class="btn ghost" onclick="setExample(3,6)">Even on a die</button>
+        <button class="btn ghost" onclick="setExample(13,52)">Heart from a deck</button>
+        <button class="btn ghost" onclick="setExample(6,36)">Sum 7 (two dice)</button>
+      </div>
+      <div class="result-box" id="basicOut"></div>
+    </div>
+
+    <div class="card">
+      <h2>Two Independent Events</h2>
+      <p class="hint">Enter probabilities between 0 and 1 (for example 0.9 and 0.85 for two trains being on time).</p>
+
+      <div class="row">
+        <label for="pa">P(A):</label><input type="number" id="pa" value="0.9" min="0" max="1" step="0.01">
+        <label for="pb">P(B):</label><input type="number" id="pb" value="0.85" min="0" max="1" step="0.01">
+        <button class="btn" onclick="calcTwo()">Calculate</button>
+      </div>
+      <div class="result-box" id="twoOut"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Probability Lab · Essential Aptitude Skills · Built with HTML, CSS and JavaScript</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

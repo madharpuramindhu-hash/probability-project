@@ -1,0 +1,95 @@
+:root {
+  --navy: #14213d;
+  --indigo: #3f4fb5;
+  --peri: #9db0f0;
+  --tint: #eef1fa;
+  --gray: #5b6478;
+  --red: #b4463c;
+  --green: #2f7d5b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Calibri, Arial, sans-serif;
+  background: #f6f7fc;
+  color: var(--navy);
+  line-height: 1.5;
+}
+
+/* Header */
+header {
+  background: var(--navy);
+  color: #fff;
+  padding: 36px 20px 28px;
+  text-align: center;
+}
+header h1 { margin: 0 0 6px; font-family: Cambria, Georgia, serif; font-size: 2.2rem; }
+header p  { margin: 0; color: var(--peri); }
+
+/* Tabs */
+nav {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  background: #fff; padding: 12px; border-bottom: 1px solid #d5daea;
+  position: sticky; top: 0; z-index: 5;
+}
+nav button {
+  border: 0; background: var(--tint); color: var(--navy);
+  padding: 10px 18px; border-radius: 999px; font-size: 0.95rem;
+  cursor: pointer; font-weight: 600;
+}
+nav button.active { background: var(--indigo); color: #fff; }
+
+main { max-width: 900px; margin: 24px auto; padding: 0 16px 60px; }
+section { display: none; }
+section.active { display: block; }
+
+.card {
+  background: #fff; border-radius: 14px; padding: 24px;
+  box-shadow: 0 2px 10px rgba(20, 33, 61, 0.07); margin-bottom: 20px;
+}
+h2 { margin-top: 0; font-family: Cambria, Georgia, serif; }
+.hint { color: var(--gray); font-size: 0.95rem; margin-top: -6px; }
+
+/* Buttons and inputs */
+.btn {
+  background: var(--indigo); color: #fff; border: 0; padding: 10px 18px;
+  border-radius: 8px; font-size: 0.95rem; cursor: pointer; margin: 4px 4px 4px 0;
+}
+.btn:hover { background: #33419a; }
+.btn.ghost { background: var(--tint); color: var(--navy); }
+input, select {
+  padding: 9px 10px; border: 1px solid #c5cbe0; border-radius: 8px;
+  font-size: 1rem; width: 120px;
+}
+label { font-weight: 600; margin-right: 6px; }
+.row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 12px 0; }
+
+/* Big result display */
+.big {
+  font-family: Cambria, Georgia, serif; font-size: 3.4rem; font-weight: bold;
+  text-align: center; color: var(--indigo); min-height: 80px;
+}
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.stat { background: var(--tint); border-radius: 10px; padding: 12px; text-align: center; }
+.stat b { display: block; font-size: 1.5rem; color: var(--navy); }
+.stat span { font-size: 0.85rem; color: var(--gray); }
+
+/* Bar charts made with plain divs */
+.bar-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 0.9rem; }
+.bar-label { width: 70px; font-weight: 600; }
+.bar-track { position: relative; flex: 1; height: 22px; background: var(--tint); border-radius: 6px; }
+.bar-fill  { height: 100%; background: var(--indigo); border-radius: 6px; width: 0; transition: width 0.3s; }
+.bar-theory { position: absolute; top: -3px; bottom: -3px; width: 3px; background: var(--red); }
+.bar-value { width: 110px; text-align: right; color: var(--gray); }
+.legend { font-size: 0.85rem; color: var(--gray); margin-top: 8px; }
+.dot-i { color: var(--indigo); } .dot-r { color: var(--red); }
+
+canvas { width: 100%; height: auto; background: #fff; border: 1px solid #e0e4f2; border-radius: 10px; }
+
+.result-box {
+  background: var(--tint); border-radius: 10px; padding: 16px; margin-top: 14px;
+}
+.result-box .formula { font-family: Cambria, Georgia, serif; font-size: 1.3rem; color: var(--indigo); font-weight: bold; }
+.error { color: var(--red); font-weight: 600; }
+
+footer { text-align: center; color: var(--gray); font-size: 0.85rem; padding: 20px; }
